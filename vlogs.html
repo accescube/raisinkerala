@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vlogs & Stories | Raising Kerala</title>
+    <meta name="description" content="Watch inspiring vlogs and human stories showcasing the progress, startups, real estate, and tourism of Kerala.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0203050680452885" crossorigin="anonymous"></script>
+    
+    <style>
+        /* Specific Styles for Vlogs Page */
+        .page-hero {
+            padding: 150px 0 80px;
+            background: linear-gradient(135deg, var(--clr-progressive-green) 0%, var(--clr-bg-dark) 100%);
+            color: var(--clr-tech-white);
+            text-align: center;
+        }
+        
+        .page-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--clr-tech-white);
+        }
+        
+        .page-hero h1 span {
+            color: var(--clr-innovation-gold);
+        }
+        
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .filter-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background: var(--clr-bg-light);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-family: var(--font-heading);
+            font-weight: 500;
+            color: var(--clr-text-main);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--clr-progressive-green);
+            color: var(--clr-tech-white);
+            border-color: var(--clr-progressive-green);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .vlogs-grid-full {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .video-card {
+            background: var(--clr-tech-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .video-card .video-thumbnail {
+            height: 200px;
+            border-radius: 0;
+        }
+
+        .video-card-content {
+            padding: 20px;
+        }
+
+        .video-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .video-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--clr-innovation-gold);
+            letter-spacing: 0.5px;
+        }
+
+        .video-card-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            transition: color var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .video-card:hover .video-card-content h3 {
+            color: var(--clr-progressive-green);
+        }
+
+        .video-card-content p {
+            font-size: 0.9rem;
+            color: var(--clr-text-muted);
+            margin-bottom: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .main-featured-vlog {
+            margin-bottom: 60px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .main-featured-vlog .video-thumbnail {
+            height: 500px;
+            border-radius: 0;
+        }
+        
+        .main-featured-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
+        }
+        
+        .main-featured-info .video-tag {
+            background: var(--clr-innovation-gold);
+            color: var(--clr-bg-dark);
+            padding: 4px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .main-featured-info h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .main-featured-info p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero h1 { font-size: 2.5rem; }
+            .main-featured-vlog .video-thumbnail { height: 350px; }
+            .main-featured-info h2 { font-size: 1.8rem; }
+            .main-featured-info { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo">
+                <img src="raising_kerala_logo.png" alt="Raising Kerala Logo" class="brand-img-logo">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#updates">Latest Updates</a>
+                <a href="vlogs.html" class="active">Vlogs & Stories</a>
+                <a href="index.html#sectors">Sectors</a>
+                <a href="#contact" class="btn-primary">Join Movement</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-hero">
+        <div class="container fade-in-up">
+            <h1>Visualizing <span>Progress</span></h1>
+            <p>Immersive visual narratives capturing the essence of a rising Kerala. Explore human stories, startup journeys, and breathtaking tourism highlights.</p>
+        </div>
+    </header>
+
+    <!-- AdSense Banner Unit -->
+    <section class="ad-container" style="padding: 20px 0; background: var(--clr-bg-light); text-align: center;">
+        <div class="container">
+            <span style="font-size: 10px; color: #999; display: block; margin-bottom: 5px;">ADVERTISEMENT</span>
+            <!-- RaisingKerala_Horizontal_Ad -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-0203050680452885"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="section">
+        <div class="container">
+            
+            <!-- Featured Highlight -->
+            <a href="vlog-lulu.html" style="display: block; text-decoration: none;">
+                <div class="main-featured-vlog fade-in-up delay-100" style="cursor: pointer; transition: transform 0.3s ease;">
+                    <div class="video-thumbnail">
+                        <img src="images/lulu_techpark.png" alt="Lulu Techpark Twin Towers">
+                        <div class="play-btn">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <div class="video-duration">15:30</div>
+                    </div>
+                    <div class="main-featured-info">
+                        <span class="video-tag">Tech & IT</span>
+                        <h2>LuLu Techpark: Shaping the Future of Kerala's IT Landscape</h2>
+                        <p>Discover how LuLu IT Parks in Kochi are transforming Kerala into a global technology hub with premium infrastructure, robotic parking, and modern workspaces.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Filters -->
+            <div class="filter-nav fade-in-up delay-200">
+                <button class="filter-btn active">All Videos</button>
+                <button class="filter-btn">Human Stories</button>
+                <button class="filter-btn">Tech & IT</button>
+                <button class="filter-btn">Real Estate</button>
+                <button class="filter-btn">Tourism</button>
+            </div>
+
+            <!-- Video Grid -->
+            <!-- In-Grid AdSense Unit -->
+            <div class="video-card ad-card fade-in-up delay-100" style="display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 20px; background: #fafafa;">
+                <span style="font-size: 10px; color: #999; margin-bottom: 10px;">ADVERTISEMENT</span>
+                <ins class="adsbygoogle"
+                     style="display:block; width:100%; height:250px;"
+                     data-ad-format="fluid"
+                     data-ad-layout-key="-fb+5w+4e-db+86"
+                     data-ad-client="ca-pub-0203050680452885"
+                     data-ad-slot="XXXXXXXXXX"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="vlogs-grid-full">
+                <!-- Video 1 -->
+                <article class="video-card fade-in-up delay-100">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Vlog">
+                        <div class="play-btn-small"><i class="fa-solid fa-play"></i></div>
+                        <div class="video-duration">08:20</div>
+                    </div>
+                    <div class="video-card-content">
+                        <div class="video-card-meta">
+                            <span class="video-tag">Tourism</span>
+                            <span class="views">24K Views</span>
+                        </div>
+                        <h3>Munnar: Beyond the Tea Gardens</h3>
+                        <p>A cinematic journey through the misty hills of Munnar, discovering hidden eco-resorts and local culture.</p>
+                    </div>
+                </article>
+
+                <!-- Video 2 -->
+                <article class="video-card fade-in-up delay-200">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Vlog">
+                        <div class="play-btn-small"><i class="fa-solid fa-play"></i></div>
+                        <div class="video-duration">15:10</div>
+                    </div>
+                    <div class="video-card-content">
+                        <div class="video-card-meta">
+                            <span class="video-tag">Real Estate</span>
+                            <span class="views">18K Views</span>
+                        </div>
+                        <h3>Modern Living: Kochi Real Estate Tour</h3>
+                        <p>Touring the most luxurious and smart apartments in Kochi's rapidly expanding urban center.</p>
+                    </div>
+                </article>
+
+                <!-- Video 3 -->
+                <article class="video-card fade-in-up delay-300">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1605335191253-e380f769f3d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Vlog">
+                        <div class="play-btn-small"><i class="fa-solid fa-play"></i></div>
+                        <div class="video-duration">05:30</div>
+                    </div>
+                    <div class="video-card-content">
+                        <div class="video-card-meta">
+                            <span class="video-tag">Human Stories</span>
+                            <span class="views">32K Views</span>
+                        </div>
+                        <h3>The Artisan of Alleppey</h3>
+                        <p>Meet the master craftsman keeping Kerala's traditional wooden boat making heritage alive.</p>
+                    </div>
+                </article>
+
+                <!-- Video 4 -->
+                <article class="video-card fade-in-up delay-100">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Vlog">
+                        <div class="play-btn-small"><i class="fa-solid fa-play"></i></div>
+                        <div class="video-duration">11:45</div>
+                    </div>
+                    <div class="video-card-content">
+                        <div class="video-card-meta">
+                            <span class="video-tag">Tech & IT</span>
+                            <span class="views">45K Views</span>
+                        </div>
+                        <h3>Inside Trivandrum's Tech Park</h3>
+                        <p>A look at the massive campus driving technological innovation and employment in the state capital.</p>
+                    </div>
+                </article>
+
+                <!-- Video 5 -->
+                <article class="video-card fade-in-up delay-200">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1542361345-89e58247f2d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Vlog">
+                        <div class="play-btn-small"><i class="fa-solid fa-play"></i></div>
+                        <div class="video-duration">09:15</div>
+                    </div>
+                    <div class="video-card-content">
+                        <div class="video-card-meta">
+                            <span class="video-tag">Sustainability</span>
+                            <span class="views">28K Views</span>
+                        </div>
+                        <h3>Green Kerala: Solar Powered Villages</h3>
+                        <p>How remote villages are becoming completely self-reliant through renewable energy initiatives.</p>
+                    </div>
+                </article>
+
+                <!-- Video 6 -->
+                <article class="video-card fade-in-up delay-300">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Vlog">
+                        <div class="play-btn-small"><i class="fa-solid fa-play"></i></div>
+                        <div class="video-duration">14:20</div>
+                    </div>
+                    <div class="video-card-content">
+                        <div class="video-card-meta">
+                            <span class="video-tag">Real Estate</span>
+                            <span class="views">12K Views</span>
+                        </div>
+                        <h3>Architectural Marvels: Kerala Homes</h3>
+                        <p>Exploring homes that perfectly blend traditional Kerala architecture with modern luxury.</p>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="text-center mt-4 fade-in-up delay-100" style="margin-top: 50px;">
+                <button class="btn-outline">Load More Videos</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <img src="raising_kerala_logo.png" alt="Raising Kerala Logo" class="brand-img-logo">
+                <p>Showcasing Kerala's Progress to the World through inspiring stories and updates.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#updates">Latest Updates</a></li>
+                    <li><a href="vlogs.html">Vlogs & Stories</a></li>
+                    <li><a href="index.html#sectors">Sectors</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#">Real Estate</a></li>
+                    <li><a href="#">Tourism</a></li>
+                    <li><a href="#">Industry</a></li>
+                    <li><a href="#">Technology</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h3>Stay Updated</h3>
+                <p>Subscribe to our newsletter for weekly positive updates.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 Raising Kerala. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy.html">Privacy & Ad Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Simple filter logic for demonstration
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Add a small animation to grid
+                const grid = document.querySelector('.vlogs-grid-full');
+                grid.style.opacity = '0';
+                setTimeout(() => {
+                    grid.style.opacity = '1';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
